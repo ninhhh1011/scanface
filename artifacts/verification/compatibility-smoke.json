@@ -1,0 +1,109 @@
+{
+  "at": "2026-09-14T10:03:46.350Z",
+  "results": [
+    {
+      "path": "/api/healthz",
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "status": "ok",
+        "service": "abc-hrm"
+      }
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 401,
+      "data": {
+        "error": {
+          "code": "UNAUTHENTICATED",
+          "message": "UNAUTHENTICATED"
+        }
+      }
+    },
+    {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 200,
+      "data": {
+        "ok": true
+      }
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "user": {
+          "id": "user-admin",
+          "email": "admin@abc.example",
+          "employee_id": null,
+          "role": "SUPER_ADMIN",
+          "capabilities": [
+            "system:manage",
+            "hr:read",
+            "hr:write",
+            "payroll:read",
+            "payroll:write",
+            "documents:sensitive",
+            "knowledge:write"
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api/compatibility",
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "runtime": "workers",
+        "database": true,
+        "vector_distance": 0,
+        "employees": 20,
+        "python": {
+          "status": "ready",
+          "models_ready": true,
+          "inference_checked": true,
+          "database_ready": true,
+          "encryption_ready": true,
+          "model_version": "yunet-2023mar+sface-2021dec:47534e27c985",
+          "dimension": 128
+        },
+        "chat": "CONFIGURED_NOT_VERIFIED"
+      }
+    },
+    {
+      "path": "/api/hr/departments",
+      "method": "POST",
+      "status": 201,
+      "data": {
+        "id": "69833add-c53b-40a9-b512-39dd89e7c04d",
+        "name": "Worker transaction smoke 7eed0034-f3ce-4dd5-85e6-302fbd114f44",
+        "source": "USER"
+      }
+    },
+    {
+      "path": "/api/hr/departments/69833add-c53b-40a9-b512-39dd89e7c04d",
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "id": "69833add-c53b-40a9-b512-39dd89e7c04d",
+        "name": "Worker transaction smoke 7eed0034-f3ce-4dd5-85e6-302fbd114f44",
+        "source": "USER"
+      }
+    },
+    {
+      "path": "/api/files/f19ef4ae-a7fc-466e-a755-69656a13f8be",
+      "method": "DELETE",
+      "status": 200,
+      "data": {
+        "ok": true
+      }
+    },
+    {
+      "path": "/api/files",
+      "private_upload_download": true,
+      "unauthorized_status": 401
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "at": "2026-09-14T09:38:32.098Z",
+  "status": "IMPLEMENTED_AND_VERIFIED",
+  "classification": "Actual Workers HTTP and PostgreSQL; fabricated proof only tests rejection; no enrollment or provider success",
+  "results": [
+    {
+      "path": "/api/hr/employees",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/hr/attendance",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/hr/payroll",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/hr/users",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/hr/audit",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/files/unknown",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/knowledge",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/face/attendance",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/departments",
+      "method": "POST",
+      "status": 403
+    },
+    {
+      "path": "/api/auth/logout",
+      "method": "POST",
+      "status": 403
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/employees/NV006",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/employees/NV006",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/attendance?employee_id=NV006",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/payroll-components?employee_id=NV006",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/documents?employee_id=NV006",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/attendance?employee_id=NV006",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/payroll-components?employee_id=NV006",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/documents?employee_id=NV006",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/attendance/attendance-NV006-2026-08-14",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/attendance/attendance-NV006-2026-08-14",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/contracts/contract-NV006",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/contracts/contract-NV006",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/users",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/audit",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/attendance/export?employee_id=NV006",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/files",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/files/ea80b9f1-04db-429d-bf79-1460dbd2ee5c",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/files/ea80b9f1-04db-429d-bf79-1460dbd2ee5c",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/files/ea80b9f1-04db-429d-bf79-1460dbd2ee5c",
+      "method": "DELETE",
+      "status": 403
+    },
+    {
+      "path": "/api/files/ea80b9f1-04db-429d-bf79-1460dbd2ee5c",
+      "method": "GET",
+      "status": 403
+    },
+    {
+      "path": "/api/files/ea80b9f1-04db-429d-bf79-1460dbd2ee5c",
+      "method": "DELETE",
+      "status": 403
+    },
+    {
+      "path": "/api/hr/users",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/employees",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/hr/contracts",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/face/attendance",
+      "method": "POST",
+      "status": 403
+    },
+    {
+      "path": "/api/face/attendance",
+      "method": "POST",
+      "status": 403
+    },
+    {
+      "path": "/api/face/attendance",
+      "method": "POST",
+      "status": 422
+    },
+    {
+      "path": "/api/face/challenge",
+      "method": "POST",
+      "status": 403
+    },
+    {
+      "path": "/api/face/challenge",
+      "method": "POST",
+      "status": 422
+    },
+    {
+      "path": "/api/face/verify",
+      "method": "POST",
+      "status": 413
+    },
+    {
+      "path": "/api/auth/logout",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/hr/leave",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/files/ea80b9f1-04db-429d-bf79-1460dbd2ee5c",
+      "method": "DELETE",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/logout",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/logout",
+      "method": "POST",
+      "status": 200
+    }
+  ]
+}

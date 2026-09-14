@@ -1,0 +1,91 @@
+{
+  "at": "2026-09-13T13:39:04.659Z",
+  "status": "FAIL",
+  "results": [
+    {
+      "name": "lint",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "typecheck",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "tests",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "secrets",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "python",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "build",
+      "status": "NOT_RUN",
+      "reason": "Use --build after stopping preview to avoid a locked output directory"
+    },
+    {
+      "name": "runtime",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "browser",
+      "status": "FAIL",
+      "exit_code": 1
+    },
+    {
+      "name": "browser-flows",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "doctor",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "llm_provider",
+      "status": "BLOCKED",
+      "detail": {
+        "missing": [
+          "LLM_PROVIDER",
+          "LLM_BASE_URL",
+          "LLM_API_KEY",
+          "LLM_MODEL"
+        ]
+      }
+    },
+    {
+      "name": "embedding_provider",
+      "status": "BLOCKED",
+      "detail": {
+        "missing": [
+          "EMBEDDING_PROVIDER",
+          "EMBEDDING_BASE_URL",
+          "EMBEDDING_API_KEY",
+          "EMBEDDING_MODEL",
+          "EMBEDDING_DIMENSION"
+        ]
+      }
+    },
+    {
+      "name": "human_face_acceptance",
+      "status": "BLOCKED",
+      "detail": "Consent and webcam enrollment/evaluation by NV001–NV003 and an unknown participant required; health checks do not capture faces"
+    },
+    {
+      "name": "online_deployment",
+      "status": "BLOCKED",
+      "reason": "Requires cloud configuration, approved resources and an actual HTTPS acceptance run"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "at": "2026-09-14T10:19:53.620Z",
+  "results": [
+    {
+      "flow": "department_create_read_update",
+      "status": "PASS"
+    },
+    {
+      "flow": "new_employee_assign_real_shift_persistence",
+      "status": "PASS"
+    },
+    {
+      "flow": "new_employee_contract_create_persistence",
+      "status": "PASS"
+    },
+    {
+      "flow": "contract_private_attachment_upload_download_unauthorized_delete",
+      "status": "PASS"
+    },
+    {
+      "flow": "leave_balance_edit_create_reason_persistence",
+      "status": "PASS"
+    },
+    {
+      "flow": "employee_create_update_archive_persistence",
+      "status": "PASS"
+    },
+    {
+      "flow": "csv_invalid_preview_blocks_commit_real_export_escape",
+      "status": "PASS"
+    },
+    {
+      "flow": "timesheet_detail_20_employee_aggregates_csv",
+      "status": "PASS"
+    },
+    {
+      "flow": "employee_leave_create_submit",
+      "status": "PASS"
+    },
+    {
+      "flow": "manager_approve_real_ledger",
+      "status": "PASS"
+    },
+    {
+      "flow": "employee_cancel_restores_real_balance",
+      "status": "PASS"
+    },
+    {
+      "flow": "consent_gate_browser_camera_permission_denied_no_biometrics_unenrolled_status",
+      "status": "PASS"
+    },
+    {
+      "cleanup": "PASS",
+      "employees": 20
+    }
+  ],
+  "errors": []
+}

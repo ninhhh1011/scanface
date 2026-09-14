@@ -1,0 +1,443 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "client"
+}
+datasource db {
+  provider = "postgresql"
+}
+model User {
+  id String @id @default(uuid())
+  email String @unique
+  password_hash String
+  employee_id String? @unique
+  role String
+  capabilities String[] @default([])
+  locked Boolean @default(false)
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("users")
+}
+model Session {
+  id String @id
+  user_id String
+  expires_at DateTime @db.Timestamptz
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@index([user_id])
+  @@map("sessions")
+}
+model RateLimit {
+  id String @id
+  hits Int @default(1)
+  expires_at DateTime @db.Timestamptz
+  @@map("rate_limits")
+}
+model Department {
+  id String @id @default(uuid())
+  name String @unique
+  source String @default("USER")
+  @@map("departments")
+}
+model Position {
+  id String @id @default(uuid())
+  name String @unique
+  source String @default("USER")
+  @@map("positions")
+}
+model Employee {
+  id String @id @default(uuid())
+  code String @unique
+  full_name String
+  email String @unique
+  phone String?
+  department_id String
+  position_id String
+  manager_id String?
+  hire_date DateTime @db.Date
+  end_date DateTime? @db.Date
+  status String @default("ACTIVE")
+  source String @default("USER")
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+  @@index([manager_id])
+  @@index([department_id,status])
+  @@map("employees")
+}
+model EmploymentContract {
+  id String @id @default(uuid())
+  employee_id String
+  title String
+  starts_on DateTime @db.Date
+  ends_on DateTime? @db.Date
+  base_salary Decimal @db.Decimal(18,0)
+  status String @default("DRAFT")
+  source String @default("USER")
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@index([employee_id,ends_on])
+  @@map("contracts")
+}
+model Shift {
+  id String @id @default(uuid())
+  name String
+  start_minute Int
+  end_minute Int
+  break_minutes Int @default(60)
+  grace_minutes Int @default(5)
+  weekdays Int[] @default([1,2,3,4,5])
+  source String @default("USER")
+  @@map("shifts")
+}
+model ShiftAssignment {
+  id String @id @default(uuid())
+  employee_id String
+  shift_id String
+  starts_on DateTime @db.Date
+  ends_on DateTime @db.Date
+  source String @default("USER")
+  @@index([employee_id,starts_on,ends_on])
+  @@map("shift_assignments")
+}
+model AttendanceEvent {
+  id String @id @default(uuid())
+  employee_id String
+  session_id String
+  action String
+  occurred_at DateTime @db.Timestamptz
+  source String
+  proof_id String? @unique
+  actor_id String
+  reason String?
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@index([employee_id,occurred_at])
+  @@map("attendance_events")
+}
+model AttendanceSession {
+  id String @id @default(uuid())
+  employee_id String
+  shift_id String
+  work_date DateTime @db.Date
+  check_in DateTime @db.Timestamptz
+  check_out DateTime? @db.Timestamptz
+  worked_minutes Int @default(0)
+  late_minutes Int @default(0)
+  early_minutes Int @default(0)
+  source String
+  @@unique([employee_id,work_date,shift_id])
+  @@index([work_date])
+  @@map("attendance_sessions")
+}
+model AttendanceCorrection {
+  id String @id @default(uuid())
+  employee_id String
+  attendance_id String
+  requested_in DateTime @db.Timestamptz
+  requested_out DateTime? @db.Timestamptz
+  reason String
+  status String @default("DRAFT")
+  reviewer_id String?
+  review_reason String?
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("attendance_corrections")
+}
+model TimesheetPeriod {
+  id String @id @default(uuid())
+  name String
+  starts_on DateTime @db.Date
+  ends_on DateTime @db.Date
+  status String @default("DRAFT")
+  source String @default("USER")
+  @@map("timesheet_periods")
+}
+model LeaveType {
+  id String @id @default(uuid())
+  name String @unique
+  annual_days Int @default(12)
+  paid Boolean @default(true)
+  @@map("leave_types")
+}
+model LeaveBalance {
+  id String @id @default(uuid())
+  employee_id String
+  type_id String
+  year Int
+  granted Int
+  used Int @default(0)
+  @@unique([employee_id,type_id,year])
+  @@map("leave_balances")
+}
+model LeaveLedger {
+  id String @id @default(uuid())
+  request_id String
+  employee_id String
+  type_id String
+  delta Int
+  action String
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@unique([request_id,action])
+  @@map("leave_ledger")
+}
+model LeaveRequest {
+  id String @id @default(uuid())
+  employee_id String
+  type_id String
+  starts_on DateTime @db.Date
+  ends_on DateTime @db.Date
+  days Int
+  reason String
+  status String @default("DRAFT")
+  reviewer_id String?
+  review_reason String?
+  source String @default("USER")
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@index([employee_id,starts_on,ends_on])
+  @@map("leave_requests")
+}
+model OvertimeRequest {
+  id String @id @default(uuid())
+  employee_id String
+  starts_at DateTime @db.Timestamptz
+  ends_at DateTime @db.Timestamptz
+  reason String
+  status String @default("DRAFT")
+  reviewer_id String?
+  review_reason String?
+  source String @default("USER")
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@index([employee_id,starts_at])
+  @@map("overtime_requests")
+}
+model PayrollPeriod {
+  id String @id @default(uuid())
+  name String
+  timesheet_id String @unique
+  status String @default("DRAFT")
+  source String @default("USER")
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("payroll_periods")
+}
+model PayrollItem {
+  id String @id @default(uuid())
+  period_id String
+  employee_id String
+  base_amount Decimal @db.Decimal(18,0)
+  allowance_amount Decimal @db.Decimal(18,0)
+  adjustment_amount Decimal @db.Decimal(18,0)
+  total_amount Decimal @db.Decimal(18,0)
+  worked_minutes Int
+  overtime_minutes Int
+  @@unique([period_id,employee_id])
+  @@map("payroll_items")
+}
+model SalaryComponent {
+  id String @id @default(uuid())
+  employee_id String
+  name String
+  amount Decimal @db.Decimal(18,0)
+  kind String
+  reason String
+  source String @default("USER")
+  @@map("salary_components")
+}
+model Document {
+  id String @id @default(uuid())
+  employee_id String?
+  contract_id String?
+  owner_id String
+  title String
+  filename String
+  mime_type String
+  size Int
+  storage_key String @unique
+  classification String @default("GENERAL")
+  deleted_at DateTime? @db.Timestamptz
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("documents")
+}
+model Announcement {
+  id String @id @default(uuid())
+  title String
+  body String
+  audience String[]
+  status String @default("DRAFT")
+  author_id String
+  source String @default("USER")
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("announcements")
+}
+model Notification {
+  id String @id @default(uuid())
+  user_id String
+  title String
+  href String
+  read_at DateTime? @db.Timestamptz
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@index([user_id,read_at])
+  @@map("notifications")
+}
+model ReviewCycle {
+  id String @id @default(uuid())
+  name String
+  starts_on DateTime @db.Date
+  ends_on DateTime @db.Date
+  source String @default("USER")
+  @@map("review_cycles")
+}
+model PerformanceReview {
+  id String @id @default(uuid())
+  employee_id String
+  cycle_id String
+  self_comment String?
+  manager_comment String?
+  score Int?
+  status String @default("DRAFT")
+  source String @default("USER")
+  @@unique([employee_id,cycle_id])
+  @@map("performance_reviews")
+}
+model FaceProfile {
+  id String @id @default(uuid())
+  employee_id String @unique
+  status String
+  model_version String
+  dimension Int
+  sample_count Int
+  updated_at DateTime @default(now()) @db.Timestamptz
+  @@map("face_profiles")
+}
+model FaceTemplate {
+  id String @id @default(uuid())
+  profile_id String
+  ciphertext Bytes
+  model_version String
+  dimension Int
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("face_templates")
+}
+model EnrollmentConsent {
+  id String @id @default(uuid())
+  employee_id String
+  actor_id String
+  purpose String
+  accepted_at DateTime @default(now()) @db.Timestamptz
+  revoked_at DateTime? @db.Timestamptz
+  @@map("enrollment_consents")
+}
+model FaceChallenge {
+  id String @id @default(uuid())
+  employee_id String
+  actor_id String
+  session_id String
+  action String
+  direction String
+  nonce String @unique
+  expires_at DateTime @db.Timestamptz
+  consumed_at DateTime? @db.Timestamptz
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("face_challenges")
+}
+model FaceVerification {
+  id String @id @default(uuid())
+  employee_id String
+  session_id String
+  action String
+  challenge_id String @unique
+  model_version String
+  expires_at DateTime @db.Timestamptz
+  consumed_at DateTime? @db.Timestamptz
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("face_verifications")
+}
+model KnowledgeDocument {
+  id String @id @default(uuid())
+  title String
+  owner_id String
+  classification String
+  allowed_roles String[]
+  status String @default("DRAFT")
+  active_version_id String?
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("knowledge_documents")
+}
+model DocumentVersion {
+  id String @id @default(uuid())
+  document_id String
+  version String
+  effective_from DateTime @db.Timestamptz
+  effective_to DateTime? @db.Timestamptz
+  file_id String
+  content_hash String?
+  status String @default("UPLOADED")
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@unique([document_id,version])
+  @@map("document_versions")
+}
+model DocumentChunk {
+  id String @id @default(uuid())
+  version_id String
+  ordinal Int
+  content String
+  section String?
+  page Int?
+  embedding_model String
+  embedding_dimension Int
+  embedding Unsupported("vector")
+  content_hash String
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@unique([version_id,ordinal])
+  @@map("document_chunks")
+}
+model IngestionJob {
+  id String @id @default(uuid())
+  version_id String @unique
+  status String @default("QUEUED")
+  attempts Int @default(0)
+  error_code String?
+  checkpoint Json?
+  locked_at DateTime? @db.Timestamptz
+  available_at DateTime @default(now()) @db.Timestamptz
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @default(now()) @db.Timestamptz
+  @@index([status,available_at])
+  @@map("ingestion_jobs")
+}
+model ChatSession {
+  id String @id @default(uuid())
+  user_id String
+  title String
+  permission_hash String
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("chat_sessions")
+}
+model ChatMessage {
+  id String @id @default(uuid())
+  session_id String
+  role String
+  content String
+  citations Json @default("[]")
+  route String?
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@map("chat_messages")
+}
+model AuditEvent {
+  id String @id @default(uuid())
+  actor_id String?
+  action String
+  resource_type String
+  resource_id String?
+  result String
+  reason String?
+  request_id String
+  before Json?
+  after Json?
+  created_at DateTime @default(now()) @db.Timestamptz
+  @@index([created_at])
+  @@map("audit_events")
+}
+model Setting {
+  key String @id
+  value Json
+  @@map("settings")
+}
+model ServiceNonce {
+  nonce String @id
+  expires_at DateTime @db.Timestamptz
+  @@map("service_nonces")
+}

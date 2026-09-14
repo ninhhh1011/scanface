@@ -1,0 +1,66 @@
+{
+  "at": "2026-09-13T12:35:21.021Z",
+  "results": [
+    {
+      "filename": "01-cham-cong.md",
+      "id": "d2356ed3-1c01-44fc-8d6f-035802997bfe",
+      "version_id": "d0a80c3e-8423-4c3b-b865-d40f6c92d45c",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "02-nghi-phep.md",
+      "id": "8f187b54-aecf-4690-8883-463376c4da70",
+      "version_id": "a6304659-1398-46e9-b40e-3055b0899cf9",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "03-lam-them.md",
+      "id": "064c02a1-9612-4211-9de4-a6a7926ab664",
+      "version_id": "b3434d92-de9c-48b8-9902-e381d3ebd553",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "04-lam-viec-tu-xa.md",
+      "id": "6e4d0381-b483-40d6-82b8-df4ab44b48a7",
+      "version_id": "3cebc005-727e-4242-9bd8-03d67d90186e",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "05-onboarding.md",
+      "id": "5e753492-3e20-4e20-a1c5-1a66d91ff2af",
+      "version_id": "df3558b4-e986-4f4d-81dd-72a01c230ef2",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "06-bao-mat.md",
+      "id": "3056f297-f855-43bf-ae41-fa054b3efe9e",
+      "version_id": "d91fa712-d59f-4121-b9a1-14b5d72716ec",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "07-hop-dong.md",
+      "id": "7c4bfd17-ed90-4120-8259-c19107e935fc",
+      "version_id": "776ad5dc-e724-4fd0-84bf-7238f8303969",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "08-danh-gia.md",
+      "id": "64e190e8-18a8-4a1f-96bf-8e2da19e2738",
+      "version_id": "e8414feb-2cc6-49ca-80e2-af9513ce4cfd",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "09-ca-lam.md",
+      "id": "2febda30-09f0-44a7-aa75-0ec437c0b639",
+      "version_id": "07f2bfce-6afe-4938-be09-4c190f924981",
+      "status": "QUEUED"
+    },
+    {
+      "filename": "10-doi-soat-cong.md",
+      "id": "c88c1796-212b-4147-a131-4060865e6fa3",
+      "version_id": "f867dec3-03fb-4189-9033-bcf29442b936",
+      "status": "QUEUED"
+    }
+  ],
+  "indexing": "Separate real embedding worker; no automatic publish"
+}

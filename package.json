@@ -1,0 +1,59 @@
+{
+  "name": "abc-hrm",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w apps/web",
+    "build": "npm run build -w apps/web",
+    "typecheck": "npm run typecheck -w apps/web",
+    "test": "node --no-maglev node_modules/vitest/vitest.mjs run",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "node --no-maglev --env-file=.env --import tsx prisma/seed/index.ts",
+    "infra:up": "docker compose --env-file .env -f infra/compose.yaml up -d",
+    "infra:down": "docker compose --env-file .env -f infra/compose.yaml down",
+    "preview:cloudflare": "npm run preview -w apps/web",
+    "lint": "oxlint --deny correctness apps/web/src scripts prisma/seed",
+    "setup": "node --no-maglev scripts/setup.mjs",
+    "db:roles": "node --no-maglev --env-file=.env scripts/db-roles.mjs",
+    "models:download": "services/ai/.venv/Scripts/python.exe scripts/models-download.py",
+    "models:verify": "services/ai/.venv/Scripts/python.exe scripts/models-download.py --verify",
+    "kb:ingest-seed": "node --no-maglev --env-file=.env scripts/kb-ingest-seed.mjs",
+    "doctor": "node --no-maglev scripts/doctor.mjs",
+    "verify": "node --no-maglev scripts/verify.mjs",
+    "services:start": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/local-services.ps1 start",
+    "services:stop": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/local-services.ps1 stop",
+    "services:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/local-services.ps1 status",
+    "deploy:check": "node --no-maglev scripts/doctor.mjs --deploy",
+    "deploy:web": "npm run deploy -w apps/web --",
+    "test:e2e": "node --no-maglev --env-file=.env scripts/browser-qa.mjs && node --no-maglev --env-file=.env scripts/browser-flows.mjs",
+    "test:ai": "services/ai/.venv/Scripts/python.exe services/ai/run-local.py test tests -q",
+    "test:setup": "node --no-maglev scripts/fresh-setup-check.mjs",
+    "security:secrets": "node --no-maglev scripts/secret-check.mjs"
+  },
+  "dependencies": {
+    "@noble/hashes": "2.4.0",
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "pg": "8.23.0",
+    "zod": "4.6.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.10.1",
+    "@types/pg": "8.15.6",
+    "dotenv": "17.2.3",
+    "prisma": "7.10.0",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "oxlint": "1.82.0"
+  },
+  "overrides": {
+    "deepmerge-ts": "8.0.2",
+    "mysql2": "3.24.4"
+  }
+}

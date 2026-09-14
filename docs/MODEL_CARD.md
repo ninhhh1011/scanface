@@ -1,0 +1,26 @@
+# Face model card
+
+Implementation: `services/ai/app/face.py`. Verified 2026-09-13. CPU OpenCV 4.12.0.88 with NumPy 2.2.6 and Python 3.12.13. Models are loaded once per process; readiness executes both detector and recognizer on blank inputs. The real recognizer output has 128 dimensions. Blank inputs are never stored as identities.
+
+| Artifact | Bytes | SHA-256 |
+|---|---:|---|
+| face_detection_yunet_2023mar.onnx | 232589 | 8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4 |
+| face_recognition_sface_2021dec.onnx | 38696353 | 0ba9fbfa01b5270c96627c4ef784da859931e02f04419c829e83484087c34e79 |
+
+Both artifact paths are pinned to [OpenCV Zoo commit 47534e27c9851bb1128ccc0102f1145e27f23f98](https://github.com/opencv/opencv_zoo/tree/47534e27c9851bb1128ccc0102f1145e27f23f98/models). Expected checksums/sizes were obtained from the official Git LFS pointers. Downloads use the matching `media.githubusercontent.com/media/opencv/opencv_zoo/{commit}/models/...` binary, reject short/oversize/LFS-pointer files, verify SHA-256, then atomically rename. Startup verifies the files again. Local cache `.local/models/` is ignored; container build downloads verified files into `/opt/models`. No request downloads models.
+
+YuNet directory license is MIT, copyright 2020 Shiqi Yu. SFace directory license is Apache 2.0; its README explicitly states all files in the directory use that license. The directory licenses are retained under `services/ai/licenses/`. SFace weights encode MobileFaceNet trained with the SFace loss. No training, demographic inference, emotion inference, or secondary use is implemented.
+
+Pipeline: JPEG header/dimensions and byte bounds → OpenCV decode → resize longest edge to 640 → YuNet, exactly one face → crop/brightness/Laplacian sharpness/boundary checks → `FaceRecognizerSF.alignCrop` with the five detector landmarks → feature inference → L2 normalization. Enrollment and recognition share this exact path. Each sample must have pairwise cosine consistency before aggregation. Successful enrollment retains 5–10 encrypted normalized templates, replacing old templates in one transaction. A different identity that reaches matching threshold causes duplicate enrollment refusal.
+
+Cosine similarity is not a probability. Default `FACE_MATCH_THRESHOLD=0.50`, `FACE_MATCH_MARGIN=0.08`; these are conservative starting settings, **not calibrated accuracy claims**. OpenCV's published LFW example threshold is 0.363 and is not automatically transferable to this camera/population. Matching first groups the best sample score per identity; ambiguity compares distinct identities. No sufficient candidate means UNKNOWN_PERSON, no proof. Proof issuance also requires the matched employee to equal the currently authenticated account.
+
+Basic active liveness uses nose displacement relative to the eye line from actual YuNet landmarks: start neutral → turn in the randomly requested direction → return neutral. Frame count 5–10, monotonic Unix-millisecond timestamps, 100–3000ms gaps, 1.2–15s total; challenge TTL 60s. Defaults `FACE_LIVENESS_NEUTRAL=0.14`, `FACE_LIVENESS_TURN=0.18`, `FACE_MIN_SHARPNESS=45` are camera-dependent calibration knobs. LEFT means participant's left (nose moves right in unmirrored camera pixels); mirror preview only, never inference pixels.
+
+Limitations: five landmarks provide a coarse 2D motion check, not certified presentation attack detection. There is no blink check, depth sensor or trained anti-spoof model. A replay/deepfake that can answer the challenge may pass; client timestamps are checked but are not a trusted hardware clock. Protocol nonces and persisted single-use challenges/proofs prevent reuse of an accepted transaction, not every spoof. Accuracy, unknown rejection, duplicate detection and direction thresholds require fresh real scans separate from enrollment samples. Population/camera-specific false acceptance/rejection rates are unmeasured.
+
+Templates use AES-256-GCM with random 12-byte nonces. Additional authenticated data binds employee ID, model version and dimension. Key `FACE_ENCRYPTION_KEY` is base64url-encoded 32 random bytes outside the database/source. Templates are decrypted only in process memory and never returned through HR/LLM APIs. There is no template cache. Delete removes ciphertext, revokes consent, invalidates proofs/challenges and writes audit metadata; retained database backups follow operator backup retention and are not claimed to be immediately erased. Key rotation requires an explicit decrypt/re-encrypt migration or fresh consented enrollment; changing the key alone makes prior ciphertext unreadable.
+
+Status: real binary/model inference verified, real PostgreSQL protocol verified, **NEEDS_HUMAN_ENROLLMENT** for NV001–NV003 and unknown-person/liveness/attendance camera validation. No human face has been enrolled by the implementation agent.
+
+Sources: [OpenCV inference tutorial](https://docs.opencv.org/4.13.0/d0/dd4/tutorial_dnn_face.html), [YuNet README](https://github.com/opencv/opencv_zoo/blob/47534e27c9851bb1128ccc0102f1145e27f23f98/models/face_detection_yunet/README.md), [SFace README](https://github.com/opencv/opencv_zoo/blob/47534e27c9851bb1128ccc0102f1145e27f23f98/models/face_recognition_sface/README.md), [AES-GCM library documentation](https://cryptography.io/en/latest/hazmat/primitives/aead/).

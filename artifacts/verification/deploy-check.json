@@ -1,0 +1,27 @@
+{
+  "at": "2026-09-14T09:22:42.758Z",
+  "status": "DEPLOYMENT_PENDING",
+  "checks": [
+    {
+      "name": "core_configuration",
+      "status": "PASS"
+    },
+    {
+      "name": "deployment_configuration",
+      "status": "BLOCKED",
+      "detail": {
+        "missing": [
+          "CLOUDFLARE_ACCOUNT_ID",
+          "CLOUDFLARE_API_TOKEN"
+        ],
+        "https": false,
+        "production": false
+      }
+    },
+    {
+      "name": "online_acceptance",
+      "status": "NOT_RUN",
+      "detail": "Configuration check only; no provisioning, deployment, webcam or online success inferred"
+    }
+  ]
+}

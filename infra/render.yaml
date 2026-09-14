@@ -1,0 +1,59 @@
+# DEPLOYMENT_PENDING: review the two paid 1 CPU / 2 GB services before creating resources.
+# Source path is relative to the repository root. No source publication is performed by this file.
+services:
+  - type: web
+    name: abc-hrm-ai
+    runtime: docker
+    plan: 1c-2g
+    region: singapore
+    dockerfilePath: ./services/ai/Dockerfile
+    dockerContext: .
+    autoDeployTrigger: off
+    healthCheckPath: /healthz
+    maxShutdownDelaySeconds: 60
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: PORT
+        value: "8000"
+      - key: AI_DATABASE_URL
+        sync: false
+      - key: SERVICE_AUTH_KEY
+        sync: false
+      - key: FACE_ENCRYPTION_KEY
+        sync: false
+      - key: FACE_CPU_THREADS
+        value: "1"
+      - key: FACE_MATCH_THRESHOLD
+        value: "0.50"
+      - key: FACE_MATCH_MARGIN
+        value: "0.08"
+  - type: worker
+    name: abc-hrm-ingestion
+    runtime: docker
+    plan: 1c-2g
+    region: singapore
+    dockerfilePath: ./services/ai/Dockerfile
+    dockerContext: .
+    dockerCommand: python -m app.worker
+    autoDeployTrigger: off
+    maxShutdownDelaySeconds: 60
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: AI_DATABASE_URL
+        sync: false
+      - key: SERVICE_AUTH_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: EMBEDDING_PROVIDER
+        sync: false
+      - key: EMBEDDING_BASE_URL
+        sync: false
+      - key: EMBEDDING_API_KEY
+        sync: false
+      - key: EMBEDDING_MODEL
+        sync: false
+      - key: EMBEDDING_DIMENSION
+        sync: false

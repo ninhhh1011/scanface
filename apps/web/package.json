@@ -1,0 +1,33 @@
+{
+  "name": "@abc/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --no-maglev ../../node_modules/vinext/dist/cli.js dev --hostname 127.0.0.1 --port 3000",
+    "build": "node --no-maglev ../../node_modules/vinext/dist/cli.js build",
+    "typecheck": "tsc --noEmit",
+    "preview": "node --no-maglev ../../node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 3000",
+    "deploy": "node --no-maglev ../../node_modules/@vinext/cloudflare/dist/cli.js deploy"
+  },
+  "dependencies": {
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-server-dom-webpack": "19.3.0",
+    "vinext": "1.0.0-beta.9",
+    "@vinext/cloudflare": "1.0.0-beta.7",
+    "@heroui/react": "3.2.5",
+    "@heroui/styles": "3.2.5"
+  },
+  "devDependencies": {
+    "vite": "8.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "@vitejs/plugin-rsc": "0.5.34",
+    "@cloudflare/vite-plugin": "1.54.8",
+    "wrangler": "4.131.1",
+    "tailwindcss": "4.3.3",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
+  }
+}

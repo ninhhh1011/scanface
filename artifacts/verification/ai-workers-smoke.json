@@ -1,0 +1,21 @@
+{
+  "at": "2026-09-14T09:38:55.795Z",
+  "results": [
+    {
+      "path": "/api/assistant",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "path": "/api/knowledge",
+      "status": 200
+    },
+    {
+      "path": "/api/knowledge/chunks/nonexistent-chunk",
+      "status": 404
+    }
+  ]
+}

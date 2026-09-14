@@ -1,0 +1,118 @@
+{
+  "at": "2026-09-14T10:18:57.424Z",
+  "results": [
+    {
+      "role": "admin",
+      "login": "PASS"
+    },
+    {
+      "role": "admin",
+      "employee_scope": "PASS"
+    },
+    {
+      "role": "hr",
+      "login": "PASS"
+    },
+    {
+      "role": "hr",
+      "employee_scope": "PASS"
+    },
+    {
+      "viewport": "390x844",
+      "table_fit": "PASS",
+      "navigation": "PASS"
+    },
+    {
+      "viewport": "768x1024",
+      "table_fit": "PASS",
+      "navigation": "PASS"
+    },
+    {
+      "viewport": "1024x768",
+      "table_fit": "PASS",
+      "navigation": "PASS"
+    },
+    {
+      "viewport": "1440x900",
+      "table_fit": "PASS",
+      "navigation": "PASS"
+    },
+    {
+      "path": "/dashboard",
+      "render": "PASS"
+    },
+    {
+      "path": "/employees/NV001",
+      "render": "PASS"
+    },
+    {
+      "path": "/contracts",
+      "render": "PASS"
+    },
+    {
+      "path": "/schedule",
+      "render": "PASS"
+    },
+    {
+      "path": "/attendance",
+      "render": "PASS"
+    },
+    {
+      "path": "/leave",
+      "render": "PASS"
+    },
+    {
+      "path": "/overtime",
+      "render": "PASS"
+    },
+    {
+      "path": "/timesheets",
+      "render": "PASS"
+    },
+    {
+      "path": "/payroll",
+      "render": "PASS"
+    },
+    {
+      "path": "/performance",
+      "render": "PASS"
+    },
+    {
+      "path": "/documents",
+      "render": "PASS"
+    },
+    {
+      "path": "/announcements",
+      "render": "PASS"
+    },
+    {
+      "path": "/assistant",
+      "render": "PASS"
+    },
+    {
+      "path": "/knowledge-base",
+      "render": "PASS"
+    },
+    {
+      "path": "/reports",
+      "render": "PASS"
+    },
+    {
+      "role": "manager",
+      "login": "PASS"
+    },
+    {
+      "role": "manager",
+      "employee_scope": "PASS"
+    },
+    {
+      "role": "employee",
+      "login": "PASS"
+    },
+    {
+      "role": "employee",
+      "employee_scope": "PASS"
+    }
+  ],
+  "errors": []
+}

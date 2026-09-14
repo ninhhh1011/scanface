@@ -1,0 +1,29 @@
+{
+  "at": "2026-09-13T13:32:47.256Z",
+  "results": [
+    {
+      "name": "migrate",
+      "exit_code": 0
+    },
+    {
+      "name": "seed",
+      "exit_code": 0
+    },
+    {
+      "name": "reseed",
+      "exit_code": 0
+    },
+    {
+      "name": "idempotence_preserves_edit",
+      "status": "PASS"
+    },
+    {
+      "name": "fresh_counts",
+      "employees": 20,
+      "templates": 0,
+      "profiles": 0,
+      "incomplete": 1
+    }
+  ],
+  "temporary_database_removed": true
+}

@@ -1,0 +1,93 @@
+{
+  "at": "2026-09-14T10:25:55.092Z",
+  "status": "CORE_READY_WITH_PENDING_GATES",
+  "checks": [
+    {
+      "name": "core_configuration",
+      "status": "PASS"
+    },
+    {
+      "name": "node",
+      "status": "PASS",
+      "detail": "24.15.0"
+    },
+    {
+      "name": "docker",
+      "status": "PASS",
+      "detail": "Docker version 29.5.3, build d1c06ef"
+    },
+    {
+      "name": "python",
+      "status": "PASS",
+      "detail": "Python 3.12.13"
+    },
+    {
+      "name": "design_unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "postgres_pgvector",
+      "status": "PASS"
+    },
+    {
+      "name": "persistent_records",
+      "status": "OBSERVED",
+      "detail": {
+        "employees": 20,
+        "enrolled": 0,
+        "chunks": 40
+      }
+    },
+    {
+      "name": "ingestion_jobs",
+      "status": "OBSERVED",
+      "detail": [
+        {
+          "status": "READY",
+          "error_code": null,
+          "count": 10
+        }
+      ]
+    },
+    {
+      "name": "python_model_readiness",
+      "status": "PASS",
+      "detail": {
+        "status": "ready",
+        "models_ready": true,
+        "inference_checked": true,
+        "database_ready": true,
+        "encryption_ready": true,
+        "model_version": "yunet-2023mar+sface-2021dec:47534e27c985",
+        "dimension": 128
+      }
+    },
+    {
+      "name": "web_reachable",
+      "status": "PASS"
+    },
+    {
+      "name": "web_database_session",
+      "status": "PASS"
+    },
+    {
+      "name": "private_storage_read",
+      "status": "PASS"
+    },
+    {
+      "name": "llm_provider",
+      "status": "NOT_RUN",
+      "detail": "Configured; run explicitly authorized real provider evaluation"
+    },
+    {
+      "name": "embedding_provider",
+      "status": "NOT_RUN",
+      "detail": "Configured; run explicitly authorized real provider evaluation"
+    },
+    {
+      "name": "human_face_acceptance",
+      "status": "BLOCKED",
+      "detail": "Consent and webcam enrollment/evaluation by NV001–NV003 and an unknown participant required; health checks do not capture faces"
+    }
+  ]
+}
