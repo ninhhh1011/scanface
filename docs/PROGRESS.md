@@ -33,7 +33,7 @@ Theo chỉ đạo của người dùng:
 | 5 — Knowledge/Copilot | DONE / VERIFIED | 10 văn bản chính sách (40 chunks) trong pgvector; OpenAI `gpt-4.1-mini` + Gemini Embeddings 3072; 26/26 eval tests + 1 RAG test thật PASSED. |
 | 6 — Security | DONE | 53 security HTTP checks, CSRF, origin check, credential rotation, no secrets in logs, zero leak findings. |
 | 7 — Polish/validation | DONE | `npm run verify -- --http --providers` exit code 0 cho toàn bộ test, lint, typecheck, secrets, python, runtime, browser, flows, doctor. |
-| 8 — Online | DEPLOYMENT_PENDING | Đã sẵn sàng script và cấu hình; chờ thông tin tài khoản Cloudflare/Linux host từ người dùng để triển khai production. |
+| 8 — Online | DEPLOYING (CLOUDFLARE) | Đã cấu hình Cloudflare Workers CI/CD tự động: tên Worker `scanface`, fallback DB URL cho Prisma generate, bỏ bắt buộc R2 để triển khai 100% free; commit `4136840` đẩy lên GitHub `main`. |
 | 9 — UI Migration | DONE | Đã hoàn tất di chuyển toàn bộ frontend sang **HeroUI + Reviews.io Design System** (Teal `#067C74`, card 22px, button pill 9999px, font `system-ui`). Xem chi tiết `docs/UI_MIGRATION_REPORT.md`. |
 
 ### Bước kế tiếp — Đăng ký khuôn mặt (Face Enrollment)
