@@ -5,6 +5,5 @@
   "compatibility_date": "2026-09-13",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {"directory":"dist/client","not_found_handling":"none","binding":"ASSETS"},
-  "r2_buckets": [{"binding":"PRIVATE_FILES","bucket_name":"abc-hrm-private"}],
   "observability": {"enabled":false}
 }

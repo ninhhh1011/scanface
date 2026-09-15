@@ -5,7 +5,7 @@ import { audit } from './audit';
 import type { Document } from '@prisma/client';
 import { locked } from './workflows';
 type Bucket={put(key:string,value:ArrayBuffer,options?:unknown):Promise<unknown>;get(key:string):Promise<{body:ReadableStream}|null>;delete(key:string):Promise<void>};
-async function bucket():Promise<Bucket>{const {env}=await import('cloudflare:workers');return (env as unknown as {PRIVATE_FILES:Bucket}).PRIVATE_FILES;}
+async function bucket():Promise<Bucket>{const {env}=await import('cloudflare:workers');const b=(env as unknown as {PRIVATE_FILES?:Bucket})?.PRIVATE_FILES;if(!b)throw new AppError('STORAGE_UNAVAILABLE',503);return b;}
 const types:Record<string,string>={txt:'text/plain',md:'text/markdown',pdf:'application/pdf',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png'};
 export async function storeFile(actor:Actor,file:File,metadata:{title:string;employee_id?:string;classification?:string;contract_id?:string}){
   if(!can(actor,'hr:write')&&!can(actor,'knowledge:write'))throw new AppError('PERMISSION_DENIED',403);
