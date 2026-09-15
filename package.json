@@ -6,6 +6,9 @@
     "apps/web"
   ],
   "scripts": {
+    "prebuild": "prisma generate",
+    "deploy": "npx wrangler deploy --cwd apps/web --name scanface",
+    "versions:upload": "npx wrangler versions upload --cwd apps/web --name scanface",
     "dev": "npm run dev -w apps/web",
     "build": "npm run build -w apps/web",
     "typecheck": "npm run typecheck -w apps/web",
